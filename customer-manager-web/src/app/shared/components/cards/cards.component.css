@@ -1,0 +1,41 @@
+.card {
+    margin: 20px 30px;
+    max-width: 22rem;
+    float: left;
+    display: block;
+    font-size: 15px;
+    background-color: white;
+    color: black;
+    font-family: sans-serif;
+    font-weight: light;   
+}
+.card-header {    
+    background-color: blue;
+    font-size: 18px;        
+    color: white; 
+}
+/* .card-body {     
+    
+    float: left;
+} */
+.img-square-wrapper {
+    margin: 0px 10px 5px 5px;
+    float: left; 
+}
+.image-dimension {
+    width: 70px;
+    height: 70px;
+}
+.card-title {
+    margin : 10px 30px 2px 5px;
+}
+
+.card-link{
+    margin: 0 10px 10px;
+}
+.edit-icon {
+    float: right;
+    font-size:20px;
+    color: white;
+    border: none;
+}

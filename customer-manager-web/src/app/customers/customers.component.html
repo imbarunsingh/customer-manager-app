@@ -1,0 +1,15 @@
+<div id="btnContainer">
+    <button type="button" class="btn btn-outline-secondary" routerLink="card-view" routerLinkActive="active"><i class="fa fa-th-large"></i> Card View</button>
+    <button type="button" class="btn btn-outline-secondary" routerLink="list-view" routerLinkActive="active"><i class="fa fa-bars"></i> List View</button> 
+    <button type="button" class="btn btn-outline-secondary" routerLink="map-view" routerLinkActive="active"><i class="fa fa-map-marker"></i> Map View</button> 
+    <button type="button" class="btn btn-outline-secondary" routerLink="add-customer" routerLinkActive="active"><i class="fa fa-plus"></i> New Customer</button> 
+</div>
+<footer class="fixed-bottom">
+    <div>
+        <mat-paginator [length]="100"
+        [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 25, 50, 100]">
+    </mat-paginator>
+    </div>
+</footer>
+<router-outlet></router-outlet>

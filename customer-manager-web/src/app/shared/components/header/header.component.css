@@ -1,0 +1,21 @@
+.navbar-nav { 
+    margin-left: auto;   
+    font-size: 20px;
+    font-weight: bolder;
+    line-height: 5px;
+  } 
+  .nav-link{
+    color: white;
+    margin-left: 20px;
+  }
+  .btn-outline-secondary {
+    padding: 5px;
+  }
+  .btn-outline-secondary:not(:disabled):not(.disabled).active {
+    background-color: white;  
+    color: black;
+  }
+  .nav-link:focus {
+    background-color: white;  
+    color: black;
+  }

@@ -1,0 +1,8 @@
+th {
+    font-size: large;     
+}
+.table>tbody>tr>td {
+    padding: 20px 8px;
+    font-size: medium; 
+    text-align: left;
+}

@@ -1,0 +1,20 @@
+<div class="card">
+    <div class="card-header">
+        {{ header }} 
+        <a routerLink="/orders" class="fa fa-edit btn edit-icon"></a>        
+    </div>
+    <div class="card-body">
+        <div class="img-square-wrapper">        
+            <img *ngIf="gender == 'Male'" class="image-dimension" src="./assets/images/male.png" alt="Card image cap">          
+            <img *ngIf="gender == 'Female'" class="image-dimension" src="./assets/images/female.png" alt="Card image cap">                       
+            
+        </div>
+        <span>{{ title }}</span>
+        <!-- <div class="card-title"> 
+            <div>{{ title }}</div>          
+        </div> -->
+        <div class="card-link">
+            <a routerLink="{{linkUrl}}">{{linkText}}</a>
+        </div>
+    </div>
+</div>
