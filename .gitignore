@@ -13,6 +13,7 @@ app/**/*.js.map
 # dependencies
 node_modules/
 bower_components/
+node/
 
 # IDEs and editors
 .idea/
@@ -77,6 +78,7 @@ local.properties
 
 # STS (Spring Tool Suite)
 .springBeans
+.classpath
 
 # Code Recommenders
 .recommenders/
@@ -229,6 +231,8 @@ hs_err_pid*
 ### Java-Web ###
 ## ignoring target file
 target/
+package-lock.json
+
 
 ### Node ###
 # Logs
@@ -310,7 +314,7 @@ jspm_packages/
 
 # Nuxt.js build / generate output
 .nuxt
-dist
+dist/
 
 # Gatsby files
 .cache/
