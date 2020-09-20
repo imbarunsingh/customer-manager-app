@@ -1,0 +1,14 @@
+package com.cma.constants;
+
+public enum OrderStatus {
+	PENDING,
+	AWAITING_PAYMENT,
+	AWAITING_SHIPMENT,
+	AWAITING_PICKUP,
+	SHIPPED,
+	CANCELLED,
+	DECLINED,
+	REFUNDED,
+	DISPUTED,
+	COMPLETED;
+}
