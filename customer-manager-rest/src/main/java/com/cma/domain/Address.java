@@ -10,8 +10,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 @Table(name = "ADDRESS", uniqueConstraints = { @UniqueConstraint(columnNames = "ID") })
+@ApiModel(description="All details about the customer address")
 public class Address extends AuditTrail {
 
 	private static final long serialVersionUID = -6942359817383205488L;
@@ -50,6 +54,7 @@ public class Address extends AuditTrail {
 
 	@ManyToOne
 	@JoinColumn(name = "CUSTOMER_ID", nullable = false)
+	@ApiModelProperty(hidden = true)
 	private Customer customer;
 
 	public Long getId() {

@@ -13,6 +13,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AuditTrail implements Serializable {
@@ -22,17 +24,21 @@ public abstract class AuditTrail implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "CREATED_ON", nullable = false, updatable = false)
 	@CreatedDate
+	@ApiModelProperty(hidden = true)
 	private Date createdOn;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "UPDATED_ON", nullable = false, updatable = false)
 	@LastModifiedDate
+	@ApiModelProperty(hidden = true)
 	private Date updatedOn;
 
 	@Column(name = "CREATED_BY", nullable = true, updatable = false)
+	@ApiModelProperty(hidden = true)
 	private String createdBy;
 
 	@Column(name = "UPDATED_BY", nullable = true, updatable = false)
+	@ApiModelProperty(hidden = true)
 	private String updatedBy;
 
 	public Date getCreatedOn() {

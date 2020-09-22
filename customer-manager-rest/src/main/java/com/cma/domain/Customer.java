@@ -12,9 +12,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 @Table(name = "CUSTOMER", uniqueConstraints = { @UniqueConstraint(columnNames = "ID"),
 		@UniqueConstraint(columnNames = "PHONE_NUMBER"), @UniqueConstraint(columnNames = "EMAIL_ID") })
+@ApiModel(description="All details about the Customer")
 public class Customer extends AuditTrail {
 
 	private static final long serialVersionUID = 7168329001729485086L;
@@ -22,27 +26,35 @@ public class Customer extends AuditTrail {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID", unique = true, nullable = false)
+	@ApiModelProperty(notes = "Unique identifier of the customer. No two customer can have the same id.", example = "1")
 	private Long id;
 
 	@Column(name = "FIRST_NAME", nullable = false, length = 255)
+	@ApiModelProperty(notes = "First Name", example = "Joe", required = true)
 	private String firstName;
 
 	@Column(name = "LAST_NAME", nullable = false, length = 255)
+	@ApiModelProperty(notes = "Last Name", example = "Doe", required = true)
 	private String lastName;
 
 	@Column(name = "GENDER", nullable = false, length = 10)
+	@ApiModelProperty(notes = "Gender", example = "Male", required = true)
 	private String gender;
 
 	@Column(name = "PHONE_NUMBER", unique = true, nullable = false, length = 15)
+	@ApiModelProperty(notes = "Contact Number", example = "91-11211212", required = true)
 	private Integer phoneNumber;
 
 	@Column(name = "EMAIL_ID", unique = true, nullable = false, length = 50)
+	@ApiModelProperty(notes = "Email ID", example = "vksingh55@gmail.com", required = true)
 	private String emailId;
 
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+	@ApiModelProperty(notes = "Customer Address Details")
 	private Set<Address> addresses;
 
-	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)	
+	@ApiModelProperty(notes = "Customer Order Details")
 	private Set<Order> orders;
 
 	@Override

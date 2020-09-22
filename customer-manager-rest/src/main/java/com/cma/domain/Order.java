@@ -14,8 +14,12 @@ import javax.persistence.UniqueConstraint;
 
 import com.cma.constants.OrderStatus;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 @Table(name = "ORDERS", uniqueConstraints = { @UniqueConstraint(columnNames = "ID") })
+@ApiModel(description="All details about the customer orders")
 public class Order extends AuditTrail {
 
 	private static final long serialVersionUID = 4550636638678546748L;
@@ -37,6 +41,7 @@ public class Order extends AuditTrail {
 
 	@ManyToOne
 	@JoinColumn(name = "CUSTOMER_ID", nullable = false)
+	@ApiModelProperty(hidden = true)
 	private Customer customer;
 
 	public Long getId() {
