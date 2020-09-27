@@ -1,10 +1,15 @@
-package com.cma.domain;
+package com.cma.entity;
 
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,21 +17,24 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 @Entity
 @Table(name = "CUSTOMER", uniqueConstraints = { @UniqueConstraint(columnNames = "ID"),
 		@UniqueConstraint(columnNames = "PHONE_NUMBER"), @UniqueConstraint(columnNames = "EMAIL_ID") })
-@ApiModel(description="All details about the Customer")
-public class Customer extends AuditTrail {
+@EntityListeners(AuditingEntityListener.class)
+@ApiModel(description = "All details about the Customer")
+public class Customer extends Auditable<String> implements Serializable {
 
 	private static final long serialVersionUID = 7168329001729485086L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID", unique = true, nullable = false)
-	@ApiModelProperty(notes = "Unique identifier of the customer. No two customer can have the same id.", example = "1")
+	@ApiModelProperty(hidden = true)
 	private Long id;
 
 	@Column(name = "FIRST_NAME", nullable = false, length = 255)
@@ -42,20 +50,24 @@ public class Customer extends AuditTrail {
 	private String gender;
 
 	@Column(name = "PHONE_NUMBER", unique = true, nullable = false, length = 15)
-	@ApiModelProperty(notes = "Contact Number", example = "91-11211212", required = true)
-	private Integer phoneNumber;
+	@ApiModelProperty(notes = "Contact Number", example = "911211212", required = true)
+	private Long phoneNumber;
 
 	@Column(name = "EMAIL_ID", unique = true, nullable = false, length = 50)
 	@ApiModelProperty(notes = "Email ID", example = "vksingh55@gmail.com", required = true)
 	private String emailId;
 
-	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "customer", targetEntity = Address.class, cascade = {
+			CascadeType.ALL }, fetch = FetchType.EAGER)
 	@ApiModelProperty(notes = "Customer Address Details")
-	private Set<Address> addresses;
+	private List<Address> addresses;
 
-	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)	
-	@ApiModelProperty(notes = "Customer Order Details")
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ApiModelProperty(notes = "Customer Order Details", hidden = true)
 	private Set<Order> orders;
+
+	public Customer() {
+	}
 
 	@Override
 	public int hashCode() {
@@ -114,11 +126,11 @@ public class Customer extends AuditTrail {
 		this.gender = gender;
 	}
 
-	public Integer getPhoneNumber() {
+	public Long getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(Integer phoneNumber) {
+	public void setPhoneNumber(Long phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
@@ -128,6 +140,14 @@ public class Customer extends AuditTrail {
 
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
+	}	
+
+	public List<Address> getAddresses() {
+		return addresses;
+	}
+
+	public void setAddresses(List<Address> addresses) {
+		this.addresses = addresses;
 	}
 
 	public Set<Order> getOrders() {
@@ -138,12 +158,11 @@ public class Customer extends AuditTrail {
 		this.orders = orders;
 	}
 
-	public Set<Address> getAddresses() {
-		return addresses;
-	}
-
-	public void setAddresses(Set<Address> addresses) {
-		this.addresses = addresses;
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", gender=" + gender
+				+ ", phoneNumber=" + phoneNumber + ", emailId=" + emailId + ", addresses=" + addresses + ", orders="
+				+ orders + "]";
 	}
 
 }

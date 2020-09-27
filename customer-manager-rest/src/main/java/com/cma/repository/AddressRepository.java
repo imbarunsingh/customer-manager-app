@@ -3,9 +3,9 @@ package com.cma.repository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
-import com.cma.entity.Order;
+import com.cma.entity.Address;
 
 @Repository
-public interface OrderRepository extends PagingAndSortingRepository<Order, Long>  {
+public interface AddressRepository extends PagingAndSortingRepository<Address, Long>{
 
 }
