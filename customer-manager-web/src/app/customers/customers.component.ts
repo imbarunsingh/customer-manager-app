@@ -7,9 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomersComponent implements OnInit {
 
-  private _pageSize: number;
-  private _
-
   constructor() { }
 
   ngOnInit(): void {

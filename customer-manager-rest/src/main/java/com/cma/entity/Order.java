@@ -15,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -39,22 +41,26 @@ public class Order extends Auditable<String>  implements Serializable {
 	private Long id;	
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "ORDER_STATUS", nullable = false, length = 20)
+	@Column(name = "ORDER_STATUS", length = 20)
 	@ApiModelProperty(notes = "Order Status", example = "Delivered", required = true)
+	@NotNull
 	private OrderStatus orderStatus;
 
 	@Column(name = "PRODUCT_NAME", nullable = false, length = 255)
 	@ApiModelProperty(notes = "Product Name", example = "Apple - Macbook", required = true)
+	@NotBlank
 	private String productName;
 
-	@Column(name = "PRODUCT_PRICE", nullable = false, length = 255)
+	@Column(name = "PRODUCT_PRICE", length = 255)
 	@ApiModelProperty(notes = "Product Price", example = "$1200", required = true)
+	@NotNull
 	private Double productPrice;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "ID", nullable = false)
 	@ApiModelProperty(hidden = true)
 	@JsonIgnore // To stop circular loading
+	@NotNull
 	private Customer customer;	
 
 	public Order() {

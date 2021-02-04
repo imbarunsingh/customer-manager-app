@@ -1,43 +1,36 @@
 package com.cma.exception;
 
-import java.io.Serializable;
-
 import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
-public class BaseException extends Exception implements Serializable {
+import com.cma.constants.CommonConstants;
 
-	private static final long serialVersionUID = 6059118552627710782L;
 
-	private HttpStatus httpStatus;
-	private String message;
+public class BaseException extends ResponseStatusException {
+
+	private static final long serialVersionUID = 8971474523584631033L;
 
 	public BaseException() {
-		
+		super(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-	public BaseException(HttpStatus httpStatus) {
-		this.httpStatus = httpStatus;
+	public BaseException(HttpStatus status) {
+		super(status);
 	}
 
-	public BaseException(HttpStatus httpStatus, String message) {
-		this.httpStatus = httpStatus;
-		this.message = message;
+	public BaseException(HttpStatus status, String reason) {
+		super(status, reason);
 	}
 
-	public HttpStatus getHttpStatus() {
-		return httpStatus;
+	public BaseException(HttpStatus status, String reason, Throwable cause) {
+		super(status, reason, cause);
 	}
 
-	public void setHttpStatus(HttpStatus httpStatus) {
-		this.httpStatus = httpStatus;
+	public BaseException(Throwable cause) {
+		super(HttpStatus.INTERNAL_SERVER_ERROR, CommonConstants.DEFAULT_ERROR_MSG, cause);
 	}
 
-	public String getMessage() {
-		return message;
+	public BaseException(String reason, Throwable cause) {
+		super(HttpStatus.INTERNAL_SERVER_ERROR, reason, cause);
 	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
 }

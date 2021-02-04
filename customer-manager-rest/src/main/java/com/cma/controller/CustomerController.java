@@ -8,7 +8,6 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.cma.entity.Address;
 import com.cma.entity.Customer;
 import com.cma.exception.BaseException;
 import com.cma.repository.AddressRepository;
@@ -37,7 +35,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@Api(value = "customer-manager", description = "Operations pertaining to customers")
+@Api(description = "Operations about customer")
 public class CustomerController extends BaseController {
 
 	private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
@@ -48,7 +46,7 @@ public class CustomerController extends BaseController {
 	@Autowired
 	private AddressRepository addressRepository;
 
-	@ApiOperation(value = "Get a list of customers - API 1.0", response = Customer.class)
+	@ApiOperation(value = "Get a list of customer - API 1.0", response = Customer.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list") })
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "page", dataType = "integer", example = "0", paramType = "query", value = "Results page you want to retrieve (0..N)"),
@@ -58,7 +56,7 @@ public class CustomerController extends BaseController {
 	@GetMapping(value = "/v1/customers", produces = "application/json")
 	public ResponseEntity<Map<String, Object>> getCustomersV1(@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "10") int size,
-			@RequestParam(required = false, defaultValue = "firstName") String[] sort) throws BaseException {
+			@RequestParam(required = false, defaultValue = "firstName") String[] sort) {
 		try {
 			List<Customer> customers = new ArrayList<>();
 			Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
@@ -79,15 +77,15 @@ public class CustomerController extends BaseController {
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch (Exception ex) {
 			logger.error("Exception occurred getting the customers list in API 1.0 due to:: {}", ex);
-			throw new BaseException(HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new BaseException(ex);
 		}
 	}
 
-	@ApiOperation(value = "Get a list of customers - API 2.0", response = Customer.class)
+	@ApiOperation(value = "Get a list of customer - API 2.0", response = Customer.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list") })
 	@GetMapping(value = "/v2/customers", produces = "application/json")
 	public ResponseEntity<Map<String, Object>> getCustomersV2(@RequestParam(defaultValue = "0") int page,
-			@RequestParam(defaultValue = "10") int size) throws BaseException {
+			@RequestParam(defaultValue = "10") int size) {
 		try {
 			List<Customer> customers = new ArrayList<>();
 			Pageable pageable = PageRequest.of(page, size);
@@ -108,7 +106,7 @@ public class CustomerController extends BaseController {
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch (Exception ex) {
 			logger.error("Exception occurred getting the customers list in API 2.0 due to:: {}", ex);
-			throw new BaseException(HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new BaseException(ex);
 		}
 	}
 
@@ -121,10 +119,10 @@ public class CustomerController extends BaseController {
 		return null;
 	}
 
-	@ApiOperation(value = "Adds a customer - API 1.0", response = Customer.class)
+	@ApiOperation(value = "Create customer - API 1.0", response = Customer.class)
 	@ApiResponses(value = { @ApiResponse(code = 201, message = "Added customer") })
 	@PostMapping("v1/customer")
-	ResponseEntity<Object> addCustomer(@RequestBody Customer customer) throws BaseException {
+	ResponseEntity<Object> addCustomer(@RequestBody Customer customer)  {
 		try {
 			// Generate resource id
 			Long id = customerRepository.count() + 1;
@@ -142,8 +140,8 @@ public class CustomerController extends BaseController {
 			return ResponseEntity.created(location).build();
 
 		} catch (Exception ex) {
-			logger.error("Exception occurred getting the customers list in API 1.0 due to:: {}", ex);			
-			throw new BaseException();
+			logger.error("Exception occurred getting the customers list in API 1.0 due to:: {}", ex);		
+			throw new BaseException(ex);
 		}
 	}
 

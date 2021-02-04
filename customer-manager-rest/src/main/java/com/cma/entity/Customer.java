@@ -1,7 +1,6 @@
 package com.cma.entity;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -16,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -37,24 +38,29 @@ public class Customer extends Auditable<String> implements Serializable {
 	@ApiModelProperty(hidden = true)
 	private Long id;
 
-	@Column(name = "FIRST_NAME", nullable = false, length = 255)
+	@Column(name = "FIRST_NAME")
 	@ApiModelProperty(notes = "First Name", example = "Joe", required = true)
+	@NotBlank
 	private String firstName;
 
-	@Column(name = "LAST_NAME", nullable = false, length = 255)
+	@Column(name = "LAST_NAME")
 	@ApiModelProperty(notes = "Last Name", example = "Doe", required = true)
+	@NotBlank
 	private String lastName;
 
-	@Column(name = "GENDER", nullable = false, length = 10)
+	@Column(name = "GENDER", length = 10)
 	@ApiModelProperty(notes = "Gender", example = "Male", required = true)
+	@NotBlank
 	private String gender;
 
-	@Column(name = "PHONE_NUMBER", unique = true, nullable = false, length = 15)
+	@Column(name = "PHONE_NUMBER", unique = true, length = 15)
 	@ApiModelProperty(notes = "Contact Number", example = "911211212", required = true)
+	@NotNull
 	private Long phoneNumber;
 
-	@Column(name = "EMAIL_ID", unique = true, nullable = false, length = 50)
+	@Column(name = "EMAIL_ID", unique = true, length = 50)
 	@ApiModelProperty(notes = "Email ID", example = "vksingh55@gmail.com", required = true)
+	@NotBlank
 	private String emailId;
 
 	@OneToMany(mappedBy = "customer", targetEntity = Address.class, cascade = {

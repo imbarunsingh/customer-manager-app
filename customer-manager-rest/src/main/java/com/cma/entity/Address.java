@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -35,46 +37,56 @@ public class Address extends Auditable<String> implements Serializable {
 	@ApiModelProperty(hidden = true)
 	private Long id;
 
-	@Column(name = "STREET_ADDRESS_LINE_1", nullable = false, length = 500)
+	@Column(name = "STREET_ADDRESS_LINE_1", length = 500)
 	@ApiModelProperty(notes = "Street Address - Line 1", example = "4th Main, 12th Cross", required = true)
+	@NotBlank
 	private String streetAddressLine1;
 
-	@Column(name = "STREET_ADDRESS_LINE_2", nullable = true, length = 500)
+	@Column(name = "STREET_ADDRESS_LINE_2", length = 500)
 	@ApiModelProperty(notes = "Street Address - Line 2", example = "Prestige Apartment, Whitefield", required = true)
+	@NotBlank
 	private String streetAddressLine2;
 
-	@Column(name = "CITY", nullable = false, length = 150)
+	@Column(name = "CITY", length = 150)
 	@ApiModelProperty(notes = "City", example = "Bangalore", required = true)
+	@NotBlank
 	private String city;
 
-	@Column(name = "STATE", nullable = false, length = 150)
+	@Column(name = "STATE", length = 150)
 	@ApiModelProperty(notes = "City", example = "Bangalore", required = true)
+	@NotBlank
 	private String state;
 
-	@Column(name = "COUNTRY", nullable = false, length = 20)
+	@Column(name = "COUNTRY", length = 20)
 	@ApiModelProperty(notes = "Country", example = "India", required = true)
+	@NotBlank
 	private String country;
 
-	@Column(name = "PIN_CODE", nullable = false, length = 20)
+	@Column(name = "PIN_CODE", length = 20)
 	@ApiModelProperty(notes = "PIN Code", example = "560037", required = true)
+	@NotNull
 	private Integer pinCode;
 
-	@Column(name = "LANDMARK", nullable = false, length = 255)
+	@Column(name = "LANDMARK", length = 255)
 	@ApiModelProperty(notes = "Landmark", example = "Airtel Office", required = true)
+	@NotBlank
 	private String landmark;
 
-	@Column(name = "LATITUDE", nullable = true, length = 20)
+	@Column(name = "LATITUDE", length = 20)
 	@ApiModelProperty(notes = "Latitude", example = "98.12312", required = true)
+	@NotNull
 	private Double latitude;
 
-	@Column(name = "LONGITUDE", nullable = true, length = 20)
+	@Column(name = "LONGITUDE", length = 20)
 	@ApiModelProperty(notes = "Longitude", example = "128.12312", required = true)
+	@NotNull
 	private Double longitude;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "ID", nullable = false)
 	@ApiModelProperty(hidden = true)
 	@JsonIgnore // To stop circular loading
+	@NotNull
 	private Customer customer;
 
 	public Address() {

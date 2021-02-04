@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { SharedRoutingModule } from './shared-routing.module';
 import { OrdersModule } from '../orders/orders.module';
 import { HeaderComponent } from './components/header/header.component';
+import { SorterService } from './services/sorter.service';
 
 @NgModule({
   declarations: [PageNotFoundComponent, CardsComponent, HeaderComponent],
@@ -14,6 +15,7 @@ import { HeaderComponent } from './components/header/header.component';
     FormsModule,
     SharedRoutingModule    
   ],
+  providers: [SorterService],
   exports: [CardsComponent, PageNotFoundComponent, HeaderComponent]
 })
 export class SharedModule { }
