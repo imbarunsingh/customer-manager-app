@@ -10,7 +10,7 @@ import { AddCustomerComponent } from './customers/add-customer/add-customer.comp
 
 //Order of route is important and it is searched in the order of definition
 const routes: Routes = [  
-  { path: '', pathMatch: 'full', redirectTo: '/customers'},
+  { path: '', pathMatch: 'full', redirectTo: '/customers/card-view'},
   { path: 'customers', loadChildren: './customers/customers.module#CustomersModule'},  
   { path: 'orders', loadChildren: './orders/orders.module#OrdersModule'},
   { path: '**', component: PageNotFoundComponent}
