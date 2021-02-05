@@ -10,24 +10,14 @@ import { AddCustomerComponent } from './customers/add-customer/add-customer.comp
 
 //Order of route is important and it is searched in the order of definition
 const routes: Routes = [  
-  {
-    path: 'customers',
-    component: CustomersComponent,
-    children: [
-      { path: '', redirectTo: 'card-view', pathMatch: 'full' },
-      { path: 'card-view', component: CardViewComponent },
-      { path: 'list-view', component: ListViewComponent },
-      { path: 'map-view', component: MapViewComponent },
-      { path: 'add-customer', component: AddCustomerComponent }     
-    ]
-  },
-  { path: 'orders', component: OrdersComponent },
-  { path: '', redirectTo: '/customers/card-view', pathMatch: 'full' },
-  { path: '**', component: PageNotFoundComponent }
+  { path: '', pathMatch: 'full', redirectTo: '/customers'},
+  { path: 'customers', loadChildren: './customers/customers.module#CustomersModule'},  
+  { path: 'orders', loadChildren: './orders/orders.module#OrdersModule'},
+  { path: '**', component: PageNotFoundComponent}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true, enableTracing: true })],
+  imports: [RouterModule.forRoot(routes, { useHash: false, enableTracing: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
